@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Punishment Generator | Playful Family Fun</title>
+    <meta name="description"
+        content="A fun and silly task generator for kids and families. Safe, playful, and energetic!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Bungee&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+    <!-- Background Decorative Blobs -->
+    <div class="bg-blobs" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Interactive Sparkles Layer -->
+    <div id="sparkle-container" class="sparkle-container"></div>
+
+    <!-- Creative SVG Filters -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                    result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div id="app" class="app-container">
+        <!-- Sound Toggle -->
+        <button id="sound-toggle" class="sound-toggle-btn" aria-label="Toggle Sound">
+            <span class="sound-icon">🔊</span>
+        </button>
+
+        <!-- Welcome Screen -->
+        <section id="welcome-screen" class="screen active">
+            <div class="header">
+                <h1 class="app-title">Punishment <br><span>Generator</span></h1>
+            </div>
+            <div class="mascot-container face-happy">
+                <div class="mascot-placeholder">
+                    <div class="monster-svg-wrapper">
+                        <svg class="monster-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Body -->
+                            <circle cx="100" cy="100" r="80" fill="url(#monsterGrad)" />
+                            <!-- Horns -->
+                            <path d="M60,40 Q50,10 30,30" stroke="#FF5E99" stroke-width="12" fill="none"
+                                stroke-linecap="round" />
+                            <path d="M140,40 Q150,10 170,30" stroke="#FF5E99" stroke-width="12" fill="none"
+                                stroke-linecap="round" />
+
+                            <!-- Face Group -->
+                            <g id="mascot-face">
+                                <!-- Eyes -->
+                                <g id="mascot-eyes">
+                                    <circle class="mascot-eye eyeball-l" cx="70" cy="85" r="12" fill="white" />
+                                    <circle class="mascot-eye pupil-l" cx="70" cy="85" r="6" fill="#2D3436" />
+                                    <circle class="mascot-eye eyeball-r" cx="130" cy="85" r="12" fill="white" />
+                                    <circle class="mascot-eye pupil-r" cx="130" cy="85" r="6" fill="#2D3436" />
+                                </g>
+                                <!-- Mouth -->
+                                <path id="mascot-mouth" d="M70,130 Q100,150 130,130" stroke="#2D3436" stroke-width="6"
+                                    fill="none" stroke-linecap="round" />
+                            </g>
+
+                            <defs>
+                                <linearGradient id="monsterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#FF87B2;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FF5E99;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <button id="start-btn" class="main-btn">START PLAYING!</button>
+            </div>
+        </section>
+
+        <!-- Mode Selection Screen -->
+        <section id="mode-screen" class="screen">
+            <h2 class="section-title">Pick a Mode</h2>
+            <div class="mode-cards">
+                <div class="mode-card kids" onclick="selectMode('kids')">
+                    <div class="mode-icon">🧸</div>
+                    <h3>Kids Mode</h3>
+                    <p>Silly & Easy</p>
+                </div>
+                <div class="mode-card family" onclick="selectMode('family')">
+                    <div class="mode-icon">👨‍👩‍👧</div>
+                    <h3>Family Mode</h3>
+                    <p>Fun for Everyone</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Screen -->
+        <section id="main-screen" class="screen">
+            <div class="game-content">
+                <div class="mascot-container main-mascot face-silly">
+                    <div class="monster-svg-wrapper">
+                        <svg class="monster-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="url(#monsterGradMain)" />
+                            <path d="M60,40 Q50,10 30,30" stroke="#FF5E99" stroke-width="12" fill="none"
+                                stroke-linecap="round" />
+                            <path d="M140,40 Q150,10 170,30" stroke="#FF5E99" stroke-width="12" fill="none"
+                                stroke-linecap="round" />
+                            <g class="mascot-face">
+                                <g class="mascot-eyes">
+                                    <circle class="mascot-eye eyeball-l" cx="70" cy="85" r="12" fill="white" />
+                                    <circle class="mascot-eye pupil-l" cx="70" cy="85" r="6" fill="#2D3436" />
+                                    <circle class="mascot-eye eyeball-r" cx="130" cy="85" r="12" fill="white" />
+                                    <circle class="mascot-eye pupil-r" cx="130" cy="85" r="6" fill="#2D3436" />
+                                </g>
+                                <path class="mascot-mouth" d="M70,130 Q100,150 130,130" stroke="#2D3436"
+                                    stroke-width="6" fill="none" stroke-linecap="round" />
+                            </g>
+                            <defs>
+                                <linearGradient id="monsterGradMain" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#FF87B2;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FF5E99;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <button id="generate-btn" class="orbit-btn">
+                    <span class="btn-glow"></span>
+                    <span class="btn-text">GIVE ME A<br>PUNISHMENT!</span>
+                </button>
+            </div>
+            <div class="bottom-nav">
+                <button onclick="showScreen('mode-screen')" class="nav-btn-small">Back</button>
+                <button onclick="showScreen('history-screen')" class="nav-btn-small">History 📜</button>
+            </div>
+        </section>
+
+        <!-- Result Screen -->
+        <section id="result-screen" class="screen">
+            <div class="result-card">
+                <div class="timer-badge">
+                    <span class="timer-icon">⏱️</span>
+                    <span id="timer-text">15s</span>
+                </div>
+                <div id="punishment-text" class="punishment-display">
+                    Do 10 frog jumps 🐸
+                </div>
+            </div>
+            <div class="result-actions">
+                <button id="try-another-btn" class="secondary-btn-3d">Try Another</button>
+                <button id="done-btn" class="neon-done-btn">I'm Done! ✨</button>
+            </div>
+        </section>
+
+        <!-- History Screen -->
+        <section id="history-screen" class="screen">
+            <h2 class="section-title">Past Fun tasks</h2>
+            <div id="history-list" class="history-list">
+                <!-- Items injected here -->
+            </div>
+            <button onclick="showScreen('main-screen')" class="main-btn">Back to Play</button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
